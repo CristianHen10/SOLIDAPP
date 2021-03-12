@@ -1,0 +1,59 @@
+﻿@page "/tipos-aves"
+
+<div class="">
+    <h2>Tipos de Aves (Implementación de principio de segregación de Interfaz)</h2>
+    <div class="container-cards">
+        @if (ComerLoro == null && ComerPinguino == null)
+        {
+            <span>Loading...</span>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-header">
+                    Loro
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@ComerLoro</li>
+                    <li class="list-group-item">@LoroVuela</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    Pingüinos
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@ComerPinguino</li>
+                    <li class="list-group-item">@PinguinoNada</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    public string ComerLoro { get; set; }
+    public string ComerPinguino { get; set; }
+
+    public string LoroVuela { get; set; }
+    public string PinguinoNada { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Loro Loro = new Loro();
+            Pinguino Pinguino = new Pinguino();
+
+            ComerLoro = Loro.Comer();
+            ComerPinguino = Pinguino.Comer();
+
+            LoroVuela = Loro.Volar();
+            PinguinoNada = Pinguino.Nadar();
+
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

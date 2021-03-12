@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto'
 }
 
 a, .btn-link {
@@ -48,3 +48,18 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.container-view {
+    margin-top: 25px;
+}
+
+.container-cards {
+    display: flex;
+    place-items: center;
+    place-content: center;
+    margin-top: 50px;
+}
+
+.container-cards .card {
+    margin-right: 15px;
+}

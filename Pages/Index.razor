@@ -1,7 +1,60 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<div class="">
+    <h2>Visualizador de coches (Principios Single Open/Close Liskov)</h2>
+    <div class="container-view">
+        @if (ListCoches == null)
+        {
+            <span>Loading...</span>
+        }
+        else if (ListCoches.Count <= 0)
+        {
+            <span>No hay datos.</span>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Placa</th>
+                        <th>Precio medio coche</th>
+                        <th>No. Asientos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var coche in ListCoches)
+                    {
+                        <tr>
+                            <td>@coche.marcaCoche()</td>
+                            <td>@coche.Modelo</td>
+                            <td>@coche.Color</td>
+                            <td>@coche.Placa</td>
+                            <td>@coche.precioMedioCoche()</td>
+                            <td>@coche.numAsientos()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
 
-Welcome to your new app.
+@code {        
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    List<Coche> ListCoches = new List<Coche>();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            ListCoches.Add(new Renault() { Modelo= 2010, Color = "Blanco", Placa="QWE985" });
+            ListCoches.Add(new Audi() { Modelo= 2015, Color = "Negro", Placa="KNR245" });
+            ListCoches.Add(new Mercedes() { Modelo= 2013, Color = "Plateado", Placa="DPO472" });
+            ListCoches.Add(new Ford() { Modelo= 2020, Color = "Negro", Placa="DFL150" });
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}
